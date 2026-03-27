@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, take } from 'rxjs';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalService, DesignTokensService } from '@services';
 import { AnchorRect, Annotation, AnnotationBase, Id, NewAnnotation, Segment } from '@models';
 import { TooltipComponent, AnnotationPopoverComponent } from '@components';
@@ -89,7 +89,10 @@ export class AnnotatedTextComponent {
 
   readonly popoverForm = new FormGroup({
     color: new FormControl<string>('#ff0000', { nonNullable: true }),
-    note: new FormControl<string>('', { nonNullable: true }),
+    note: new FormControl<string>('', {
+      validators: [Validators.pattern(/\S/), Validators.required],
+      nonNullable: true,
+    }),
   });
 
   readonly tooltip = {
@@ -233,6 +236,10 @@ export class AnnotatedTextComponent {
   }
 
   confirmPopover() {
+    if (this.popoverForm.invalid) {
+      return;
+    }
+
     const color = this.normalizeColor(this.popoverForm.controls.color.value);
     const note = this.popoverForm.controls.note.value.trim();
     if (this.popover.mode() === 'create') {

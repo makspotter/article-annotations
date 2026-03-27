@@ -15,7 +15,7 @@
           [routerLink]="['/article', article.id]"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <div class="title">{{ article.title }}</div>
+          <div class="title">{{ article.title || '&nbsp;' }}</div>
 
           <div class="meta">
             {{ article.updatedAt | date: 'dd.MM.yyyy HH:mm' }} ·

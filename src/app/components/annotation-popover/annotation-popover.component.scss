@@ -1,5 +1,9 @@
 .popover {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 300px;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   padding: var(--size-75);
@@ -8,10 +12,10 @@
   z-index: 10;
 }
 
-.popover .row {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  align-items: center;
+.row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   gap: var(--size-50);
   margin-bottom: var(--size-50);
 }
@@ -20,10 +24,11 @@
   width: 100%;
 }
 
-.popover .actions {
+.actions {
   display: flex;
   gap: var(--size-50);
   justify-content: flex-end;
+  width: 100%;
 }
 
 .danger {

@@ -1,0 +1,11 @@
+<div
+  class="tooltip"
+  #root
+  [class.visible]="visible()"
+  [class.below]="position() === 'below'"
+  [style.left.px]="left()"
+  [style.top.px]="top()"
+  [style.--arrow-x.px]="arrowX()"
+>
+  {{ text() }}
+</div>

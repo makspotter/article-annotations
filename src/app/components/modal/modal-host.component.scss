@@ -1,0 +1,70 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--color-backdrop);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1001;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-10);
+  padding: var(--size-100);
+  width: min(420px, calc(100vw - 2rem));
+  box-shadow: var(--shadow-1);
+}
+
+.modal h3 {
+  margin: 0 0 var(--size-50);
+  font-size: var(--size-150);
+}
+
+.modal p {
+  margin: 0 0 var(--size-75);
+  color: var(--color-text-secondary);
+}
+
+.actions {
+  display: flex;
+  gap: var(--size-50);
+  justify-content: flex-end;
+}
+
+.focus-guard {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  left: -10000px;
+  top: auto;
+}
+
+.modal button {
+  padding: var(--size-50) var(--size-75);
+  border-radius: var(--radius-6);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+
+.modal button:disabled {
+  cursor: default;
+}
+
+.modal button:not(:disabled):hover {
+  background: var(--color-hover-strong);
+}
+
+.danger {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.ghost {
+  background: transparent;
+}

@@ -1,0 +1,45 @@
+@if (modalService.open()) {
+  <div
+    class="modal-backdrop"
+    (click)="cancel()"
+  ></div>
+  <div
+    class="focus-guard"
+    #guardStart
+    tabindex="0"
+    (focus)="focusLast()"
+  ></div>
+  <div
+    class="modal"
+    #dialog
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    (keydown)="modalKeydown($event)"
+  >
+    <h3>{{ modalService.title() }}</h3>
+    <p>{{ modalService.message() }}</p>
+    <div class="actions">
+      <button
+        class="danger"
+        (click)="confirm()"
+      >
+        {{ modalService.confirmText() }}
+      </button>
+      @if (modalService.cancelText()) {
+        <button
+          class="ghost"
+          (click)="cancel()"
+        >
+          {{ modalService.cancelText() }}
+        </button>
+      }
+    </div>
+  </div>
+  <div
+    class="focus-guard"
+    #guardEnd
+    tabindex="0"
+    (focus)="focusFirst()"
+  ></div>
+}

@@ -1,0 +1,45 @@
+<div
+  class="popover"
+  #popover
+  [style.left.px]="left()"
+  [style.top.px]="top()"
+  [style.visibility]="visible() && ready() ? 'visible' : 'hidden'"
+  [style.pointer-events]="visible() && ready() ? 'auto' : 'none'"
+  [formGroup]="form()"
+>
+  <div class="row">
+    <label>Цвет</label>
+    <input
+      type="color"
+      formControlName="color"
+    />
+  </div>
+
+  <div class="row">
+    <label>Примечание</label>
+    <textarea
+      rows="3"
+      formControlName="note"
+    ></textarea>
+  </div>
+
+  <div class="actions">
+    @if (mode() === 'edit') {
+      <button
+        class="danger"
+        (click)="remove.emit()"
+      >
+        Удалить
+      </button>
+    }
+
+    <button (click)="confirm.emit()">Сохранить</button>
+
+    <button
+      class="ghost"
+      (click)="cancel.emit()"
+    >
+      Отмена
+    </button>
+  </div>
+</div>

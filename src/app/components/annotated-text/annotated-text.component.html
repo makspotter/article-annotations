@@ -1,0 +1,47 @@
+<div
+  class="text"
+  #host
+  (pointerup)="pointerUp()"
+  (pointerdown)="pointerDown($event)"
+>
+  @for (segment of segments(); track $index) {
+    @if (segment.type === 'annotation') {
+      <span
+        class="segment annotation"
+        [style.textDecorationColor]="segment.color"
+        [attr.data-id]="segment.id"
+        (mouseenter)="showTooltip($event, segment.note)"
+        (mouseleave)="hideTooltip()"
+        (mousemove)="tooltipMove($event)"
+        (click)="annotationClick($event, segment.id!)"
+        >{{ segment.text }}</span
+      >
+    } @else {
+      <span class="segment plain">{{ segment.text }}</span>
+    }
+  }
+</div>
+
+<div class="muted">
+  Выделите текст для создания аннотации, или нажмите на уже созданную аннотацию
+</div>
+
+<app-annotation-popover
+  [visible]="popover.visible()"
+  [mode]="popover.mode()"
+  [form]="popoverForm"
+  [anchorRect]="anchorRect"
+  (confirm)="confirmPopover()"
+  (remove)="onPopoverDelete()"
+  (cancel)="hidePopover()"
+/>
+
+<app-tooltip
+  #tip
+  [text]="tooltip.text()"
+  [visible]="tooltip.visible()"
+  [position]="tooltip.pos()"
+  [left]="tooltip.left()"
+  [top]="tooltip.top()"
+  [arrowX]="tooltip.arrowX()"
+/>

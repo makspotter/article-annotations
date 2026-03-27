@@ -1,0 +1,39 @@
+<div
+  class="layout"
+  [class.mobile-open]="sidebarOpen()"
+>
+  <button
+    class="burger"
+    #burger
+    type="button"
+    aria-label="Открыть меню"
+    aria-controls="sidebar"
+    [attr.aria-expanded]="sidebarOpen()"
+    (click)="toggleSidebar()"
+  >
+    ☰
+  </button>
+
+  <div
+    id="sidebar"
+    class="sidebar-container"
+    #sidebarPanel
+    tabindex="-1"
+    (keydown)="sidebarKeydown($event)"
+  >
+    <articles-sidebar />
+  </div>
+
+  <main class="main">
+    <router-outlet />
+  </main>
+
+  @if (sidebarOpen()) {
+    <div
+      class="backdrop"
+      (click)="closeSidebar()"
+    ></div>
+  }
+</div>
+
+<app-modal-host />

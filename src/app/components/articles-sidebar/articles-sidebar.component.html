@@ -1,0 +1,31 @@
+<aside class="sidebar">
+  <div class="header">
+    <h2>Статьи</h2>
+    <button (click)="addArticle()">+ Новая статья</button>
+  </div>
+
+  @let articles = articlesService.articles();
+
+  @if (articles.length) {
+    <div class="list">
+      @for (article of articles; track article.id) {
+        <a
+          class="item"
+          routerLinkActive="active"
+          [routerLink]="['/article', article.id]"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div class="title">{{ article.title }}</div>
+
+          <div class="meta">
+            {{ article.updatedAt | date: 'dd.MM.yyyy HH:mm' }} ·
+            {{ article.annotations.length }}
+            {{ article.annotations.length | ruPlural: ['аннотация', 'аннотации', 'аннотаций'] }}
+          </div>
+        </a>
+      }
+    </div>
+  } @else {
+    <p class="muted">Нет статей. Создайте первую.</p>
+  }
+</aside>

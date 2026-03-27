@@ -1,0 +1,55 @@
+.tooltip {
+  position: fixed;
+  background: var(--color-tooltip-bg);
+  color: var(--color-on-dark);
+  font-size: var(--size-75);
+  word-break: break-all;
+  padding: var(--size-50) var(--size-75);
+  border-radius: var(--radius-6);
+  max-width: 280px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100%) translateY(-2px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-100%);
+}
+
+.tooltip.below {
+  transform: translateY(2px);
+}
+
+.tooltip.below.visible {
+  transform: translateY(0);
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  left: var(--arrow-x, 12px);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  transform: translateX(-50%);
+}
+
+.tooltip:not(.below)::after {
+  bottom: calc(-1 * var(--tooltip-arrow-size));
+  border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size);
+  border-color: var(--color-tooltip-bg) transparent transparent transparent;
+}
+
+.tooltip.below::after {
+  top: calc(-1 * var(--tooltip-arrow-size));
+  border-width: 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size);
+  border-color: transparent transparent var(--color-tooltip-bg) transparent;
+}

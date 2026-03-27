@@ -1,0 +1,74 @@
+@let articleData = article();
+
+@if (articleData) {
+  <div class="wrap">
+    <div class="header">
+      <div class="modes">
+        <button
+          [class.active]="mode() === 'annotate'"
+          [disabled]="isEmpty()"
+          [attr.title]="isEmpty() ? 'Сначала добавьте текст' : null"
+          [attr.aria-disabled]="isEmpty()"
+          (click)="clickAnnotate()"
+        >
+          Аннотировать
+        </button>
+        <button
+          [class.active]="mode() === 'edit'"
+          (click)="mode.set('edit')"
+        >
+          Редактировать
+        </button>
+        <button
+          class="danger"
+          (click)="openDeleteDialog()"
+        >
+          Удалить
+        </button>
+      </div>
+      <input
+        class="title"
+        [formControl]="titleControl"
+      />
+    </div>
+
+    <div class="content">
+      @if (mode() === 'edit') {
+        <section class="editor-wrap">
+          <textarea
+            class="editor"
+            [formControl]="textControl"
+          ></textarea>
+          <div class="toolbar">
+            @if (textControl.value !== articleData.text) {
+              <span class="muted">Изменения не сохранены</span>
+            }
+            <button
+              [disabled]="textControl.value === articleData.text"
+              (click)="saveText()"
+            >
+              Сохранить
+            </button>
+            <button
+              class="ghost"
+              [disabled]="textControl.value === articleData.text"
+              (click)="cancelEdit()"
+            >
+              Отмена
+            </button>
+          </div>
+        </section>
+      } @else {
+        <annotated-text
+          [text]="articleData.text"
+          [annotations]="articleData.annotations"
+          (addAnnotation)="addAnnotation($event)"
+          (updateAnnotation)="updateAnnotation($event)"
+          (removeAnnotation)="removeAnnotation($event)"
+        />
+      }
+    </div>
+  </div>
+} @else {
+  <p class="muted pad">Статья не найдена.</p>
+}
